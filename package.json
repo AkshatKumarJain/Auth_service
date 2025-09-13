@@ -1,0 +1,23 @@
+{
+  "name": "auth_service",
+  "version": "1.0.0",
+  "description": "A service that handles all the stuff related to authentication and login for a system.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node.js",
+    "Express.js",
+    "Bcrypt"
+  ],
+  "author": "Akshat Jain",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}
