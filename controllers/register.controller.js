@@ -3,21 +3,29 @@ import User from "../models/user.model.js";
 export const registerUser = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
     try {
+
+        // every given field is necessary
         if (!username || !email || !password || !confirmPassword) {
             return res.status(400).json({ message: "All fields are required" });
         }
+
+        // check if the length of password is atleast 5 characters.
         if(password.length < 6)
         {
             return res.status(400).json({
                 message: "Password must be of atleast 6 characters!"
             })
         }
+
+        // check if the length of password exceed 15 characters.
         if(password.length > 15)
         {
             return res.status(400).json({
                 message: "Password length cannit exceed 15 characters!"
             })
         }
+
+        // check if the user with given email is already registerd.
         const findUser = await User.findOne({email});
         if(findUser)
         {
@@ -25,6 +33,8 @@ export const registerUser = async (req, res) => {
                 message: "User already exists"
             })
         }
+
+        // password and confirmPassword must be same
         if(password!==confirmPassword)
         {
             return res.status(400).json({
@@ -32,6 +42,7 @@ export const registerUser = async (req, res) => {
             })
         }
 
+        // create a new user.
         const createdUser = new User({ username, email, password });
         if(!createdUser)
         {
