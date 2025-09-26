@@ -8,7 +8,7 @@ export const aboutUser = async (req, res) => {
             return res.status(401).json({ message: "Unauthorized: No user in token" });
         }
         const {userId} = req.user;
-        const findUser = await User.findById(userId);
+        const findUser = await User.findById(userId).select('-password');
         if(!findUser)
         {
             return res.status(400).json({
@@ -26,3 +26,4 @@ export const aboutUser = async (req, res) => {
         })
     }
 }
+

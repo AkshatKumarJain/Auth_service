@@ -10,6 +10,6 @@ router.post("/create", registerUser);
 router.post("/login", loginUser);
 router.post("/logout",  logoutUser);
 router.post("/refresh", refreshUser);
-router.post("/about", authMiddleware(), aboutUser);
+router.post("/about", authMiddleware({ require: true }), aboutUser);
 
 export default router;
