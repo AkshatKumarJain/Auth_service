@@ -17,6 +17,26 @@ const userSchema = new mongoose.Schema({
         // min: [6, "Password must contain atleast 6 characters."],
         // max: [15, "Password cannot contain more than 15 characters."]
     },
+    verifyOtp: {
+        type: String,
+        default: ""
+    },
+    verifyOtpExpiresAt: {
+        type: Number,
+        default: 0
+    },
+    isAccountVerified: {
+        type: Boolean,
+        default: false
+    },
+    resetOtp: {
+        type: String,
+        default: ""
+    },
+    resetOtpExpiresAt: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
