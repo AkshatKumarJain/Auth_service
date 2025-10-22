@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import transporter from "../config/nodemailer.config.js";
 
 export const registerUser = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
@@ -53,6 +54,22 @@ export const registerUser = async (req, res) => {
         console.log(password, " ",confirmPassword);
         await createdUser.save();
         console.log(password, " ",confirmPassword);
+
+        // sending welcome email
+        const mailOptions = {
+            from: process.env.SENDER_EMAIL,
+            to: email,
+            subject: `Welcome ${username} to stayFinder.`,
+            text: `Welcome to stayFinder. Your account has been created with email id: ${email}.`
+        }
+
+        const mail = await transporter.sendMail(mailOptions);
+        if(!mail)
+        {
+            console.log("couldn't send mail");
+        }
+
+
         res.status(201).json({
             data: createdUser,
             message: "User created successfully."
