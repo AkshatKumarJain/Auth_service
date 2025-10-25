@@ -5,11 +5,6 @@ export const registerUser = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
     try {
 
-        // every given field is necessary
-        if (!username || !email || !password || !confirmPassword) {
-            return res.status(400).json({ message: "All fields are required" });
-        }
-
         // check if the length of password is atleast 5 characters.
         if(password.length < 6)
         {
@@ -24,22 +19,27 @@ export const registerUser = async (req, res) => {
             return res.status(400).json({
                 message: "Password length cannit exceed 15 characters!"
             })
+        }   
+
+        // every given field is necessary
+        if (!username || !email || !password || !confirmPassword) {
+            return res.status(400).json({ message: "All fields are required" });
         }
 
-        // check if the user with given email is already registerd.
-        const findUser = await User.findOne({email});
-        if(findUser)
-        {
-            return res.status(400).json({
-                message: "User already exists"
-            })
-        }
-
-        // password and confirmPassword must be same
+          // password and confirmPassword must be same
         if(password!==confirmPassword)
         {
             return res.status(400).json({
                 message: "Password must be same as confirm password!"
+            })
+        }
+
+        // check if the user with given email is already registerd.
+        const findUser = await User.findOne({ email });
+        if(findUser)
+        {
+            return res.status(400).json({
+                message: "User already exists"
             })
         }
 
