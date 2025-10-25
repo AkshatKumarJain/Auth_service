@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
     resetOtpExpiresAt: {
         type: Number,
         default: 0
+    },
+    role: {
+        type: String,
+        enum: ["guest", "host", "admin"],
+        default: "guest"
     }
 }, { timestamps: true });
 
